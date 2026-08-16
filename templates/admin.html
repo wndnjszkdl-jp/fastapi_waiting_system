@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 호출 패널</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/admin.css') }}">
+</head>
+<body>
+  <main class="admin-page">
+    <header class="admin-header">
+      <div>
+        <p class="eyebrow">CONTROL CENTER</p>
+        <h1>관리자 호출 패널</h1>
+        <p>번호표 발급과 방별 호출을 관리합니다.</p>
+      </div>
+
+      <div class="admin-header-actions">
+        <div class="connection-pill" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span>연결 중</span>
+        </div>
+        <a class="display-link" href="/display" target="_blank">대기 화면 열기</a>
+      </div>
+    </header>
+
+    <section class="admin-grid">
+      {% for room in rooms %}
+      <article class="control-card room-{{ room|lower }}">
+        <div class="control-card-top">
+          <div class="room-badge">{{ room }}</div>
+          <div>
+            <h2>{{ room }}방</h2>
+            <p>ROOM {{ room }}</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span>현재 호출</span>
+            <strong id="adminCurrent{{ room }}">-</strong>
+          </div>
+          <div class="stat-box">
+            <span>마지막 발급</span>
+            <strong id="adminIssued{{ room }}">0</strong>
+          </div>
+          <div class="stat-box wide">
+            <span>현재 대기 인원</span>
+            <strong id="adminWaiting{{ room }}">0명</strong>
+          </div>
+        </div>
+
+        <div class="primary-actions">
+          <button class="button issue-button" data-action="ticket" data-room="{{ room }}">
+            번호표 발급
+          </button>
+          <button class="button call-button" data-action="call" data-room="{{ room }}">
+            다음 번호 호출
+          </button>
+        </div>
+
+        <div class="secondary-actions">
+          <button class="button secondary-button" data-action="recall" data-room="{{ room }}">
+            현재 번호 재호출
+          </button>
+          <button class="button danger-soft-button" data-action="undo" data-room="{{ room }}">
+            한 단계 되돌리기
+          </button>
+        </div>
+
+        <details class="manual-box">
+          <summary>번호 직접 수정</summary>
+          <div class="manual-inputs">
+            <label>
+              현재 호출
+              <input type="number" id="manualCurrent{{ room }}" min="0" max="9999" value="0">
+            </label>
+            <label>
+              마지막 발급
+              <input type="number" id="manualIssued{{ room }}" min="0" max="9999" value="0">
+            </label>
+          </div>
+          <button class="button save-button" data-action="manual" data-room="{{ room }}">
+            수정값 저장
+          </button>
+        </details>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section class="bottom-panel">
+      <div>
+        <h2>시스템 도구</h2>
+        <p>행사 시작 전 음성과 대기 화면 연결을 확인하세요.</p>
+      </div>
+      <div class="tool-buttons">
+        <button class="button secondary-button" id="testCallButton">테스트 호출</button>
+        <button class="button reset-button" id="resetButton">전체 번호 초기화</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="ticket-modal" id="ticketModal" aria-hidden="true">
+    <div class="ticket-paper">
+      <p>대기 번호표</p>
+      <h2 id="ticketRoom">A방</h2>
+      <strong id="ticketNumber">1</strong>
+      <span>호출 전까지 대기 화면을 확인해 주세요.</span>
+      <button class="button call-button" id="closeTicketModal">확인</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', path='/js/admin.js') }}"></script>
+</body>
+</html>

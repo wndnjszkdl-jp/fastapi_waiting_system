@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대기번호 안내</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/display.css') }}">
+</head>
+<body>
+  <main class="display-page">
+    <header class="display-header">
+      <div>
+        <p class="eyebrow">WAITING INFORMATION</p>
+        <h1>해당 방으로 입장해 주세요</h1>
+        <p class="subtitle">호출된 번호를 확인한 뒤 안내된 방으로 입장해 주세요.</p>
+      </div>
+
+      <div class="header-actions">
+        <div class="connection-pill" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span>연결 중</span>
+        </div>
+        <button class="sound-button" id="enableSoundButton">🔊 소리 사용하기</button>
+        <button class="fullscreen-button" id="fullscreenButton">전체 화면</button>
+      </div>
+    </header>
+
+    <section class="room-grid">
+      {% for room in rooms %}
+      <article class="room-card room-{{ room|lower }}" id="roomCard{{ room }}">
+        <div class="room-top">
+          <div>
+            <span class="room-letter">{{ room }}</span>
+            <span class="room-korean">{{ room }}방</span>
+          </div>
+          <span class="room-en">ROOM {{ room }}</span>
+        </div>
+
+        <div class="number-panel">
+          <p>현재 입장 번호</p>
+          <strong id="current{{ room }}">-</strong>
+          <span id="waiting{{ room }}">대기 0명</span>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section class="announcement-panel">
+      <div class="bell-icon">🔔</div>
+      <div>
+        <p class="announcement-main" id="announcementMain">호출을 기다리고 있습니다.</p>
+        <p class="announcement-sub" id="announcementSub">번호가 호출되면 띵동 소리와 음성 안내가 재생됩니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="call-overlay" id="callOverlay" aria-hidden="true">
+    <div class="overlay-content">
+      <p id="overlayRoom">A방</p>
+      <strong id="overlayNumber">1</strong>
+      <span>입장해 주세요</span>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', path='/js/display.js') }}"></script>
+</body>
+</html>
