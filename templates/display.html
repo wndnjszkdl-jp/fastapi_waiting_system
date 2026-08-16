@@ -10,10 +10,10 @@
 <body>
   <main class="display-page">
     <header class="display-header">
-      <div>
-        <p class="eyebrow">WAITING INFORMATION</p>
-        <h1>해당 방으로 입장해 주세요</h1>
-        <p class="subtitle">호출된 번호를 확인한 뒤 안내된 방으로 입장해 주세요.</p>
+      <div class="header-copy">
+        <p class="eyebrow"><span class="eyebrow-mark"></span> LIVE WAITING STATUS</p>
+        <h1>호출 번호를<br><span>확인해 주세요</span></h1>
+        <p class="subtitle">화면에 표시된 번호와 ROOM을 확인해 주세요.</p>
       </div>
 
       <div class="header-actions">
@@ -21,8 +21,8 @@
           <span class="status-dot"></span>
           <span>연결 중</span>
         </div>
-        <button class="sound-button" id="enableSoundButton">🔊 소리 사용하기</button>
-        <button class="fullscreen-button" id="fullscreenButton">전체 화면</button>
+        <button class="sound-button" id="enableSoundButton">소리 사용하기</button>
+        <button class="fullscreen-button" id="fullscreenButton">전체 화면 <span aria-hidden="true">↗</span></button>
       </div>
     </header>
 
@@ -30,11 +30,11 @@
       {% for room in rooms %}
       <article class="room-card room-{{ room|lower }}" id="roomCard{{ room }}">
         <div class="room-top">
-          <div>
-            <span class="room-letter">{{ room }}</span>
-            <span class="room-korean">{{ room }}방</span>
+          <span class="room-letter">{{ room }}</span>
+          <div class="room-name">
+            <span class="room-en">CONSULTATION</span>
+            <span class="room-korean">{{ room }} ROOM</span>
           </div>
-          <span class="room-en">ROOM {{ room }}</span>
         </div>
 
         <div class="number-panel">
@@ -47,7 +47,7 @@
     </section>
 
     <section class="announcement-panel">
-      <div class="bell-icon">🔔</div>
+      <div class="bell-icon" aria-hidden="true">●</div>
       <div>
         <p class="announcement-main" id="announcementMain">호출을 기다리고 있습니다.</p>
         <p class="announcement-sub" id="announcementSub">번호가 호출되면 띵동 소리와 음성 안내가 재생됩니다.</p>
@@ -57,7 +57,7 @@
 
   <div class="call-overlay" id="callOverlay" aria-hidden="true">
     <div class="overlay-content">
-      <p id="overlayRoom">A방</p>
+      <p id="overlayRoom">A ROOM</p>
       <strong id="overlayNumber">1</strong>
       <span>입장해 주세요</span>
     </div>

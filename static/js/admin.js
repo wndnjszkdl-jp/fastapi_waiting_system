@@ -92,7 +92,7 @@ async function apiRequest(path, payload = null) {
 }
 
 function showTicket(room, number) {
-  document.getElementById("ticketRoom").textContent = `${room}방`;
+  document.getElementById("ticketRoom").textContent = `${room} ROOM`;
   document.getElementById("ticketNumber").textContent = number;
   ticketModal.classList.add("show");
   ticketModal.setAttribute("aria-hidden", "false");
@@ -110,22 +110,22 @@ async function handleAction(button) {
     if (action === "ticket") {
       result = await apiRequest("/api/ticket", { room });
       showTicket(room, result.ticket.number);
-      showToast(`${room}방 ${result.ticket.number}번 번호표를 발급했습니다.`);
+      showToast(`${room} ROOM ${result.ticket.number}번 번호표를 발급했습니다.`);
     }
 
     if (action === "call") {
       result = await apiRequest("/api/call-next", { room });
-      showToast(`${room}방 ${result.call.number}번을 호출했습니다.`);
+      showToast(`${room} ROOM ${result.call.number}번을 호출했습니다.`);
     }
 
     if (action === "recall") {
       result = await apiRequest("/api/recall", { room });
-      showToast(`${room}방 ${result.call.number}번을 재호출했습니다.`);
+      showToast(`${room} ROOM ${result.call.number}번을 재호출했습니다.`);
     }
 
     if (action === "undo") {
       result = await apiRequest("/api/undo", { room });
-      showToast(`${room}방 호출 번호를 한 단계 되돌렸습니다.`);
+      showToast(`${room} ROOM 호출 번호를 한 단계 되돌렸습니다.`);
     }
 
     if (action === "manual") {
@@ -133,7 +133,7 @@ async function handleAction(button) {
       const issued = Number(document.getElementById(`manualIssued${room}`).value);
 
       result = await apiRequest("/api/set-room", { room, current, issued });
-      showToast(`${room}방 번호를 수정했습니다.`);
+      showToast(`${room} ROOM 번호를 수정했습니다.`);
     }
 
     if (result?.state) {
@@ -152,7 +152,7 @@ document.querySelectorAll("[data-action]").forEach((button) => {
 
 document.getElementById("resetButton").addEventListener("click", async () => {
   const confirmed = window.confirm(
-    "A·B·C방의 현재 번호와 발급 번호를 모두 0으로 초기화할까요?"
+    "A·B·C ROOM의 현재 번호와 발급 번호를 모두 0으로 초기화할까요?"
   );
 
   if (!confirmed) {

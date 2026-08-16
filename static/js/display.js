@@ -14,7 +14,7 @@ let overlayTimer = null;
 
 function updateSoundButton() {
   enableSoundButton.classList.toggle("enabled", soundEnabled);
-  enableSoundButton.textContent = soundEnabled ? "🔊 소리 사용 중" : "🔇 소리 사용하기";
+  enableSoundButton.textContent = soundEnabled ? "소리 사용 중" : "소리 사용하기";
 }
 
 function setConnectionStatus(status) {
@@ -161,7 +161,7 @@ function speak(text) {
 }
 
 function showOverlay(room, number) {
-  document.getElementById("overlayRoom").textContent = `${room}방`;
+  document.getElementById("overlayRoom").textContent = `${room} ROOM`;
   document.getElementById("overlayNumber").textContent = number;
 
   callOverlay.classList.add("show");
@@ -208,8 +208,8 @@ function numberToKorean(number) {
 }
 
 async function handleCall(room, number) {
-  announcementMain.textContent = `${room}방 ${number}번 입장해 주세요`;
-  announcementSub.textContent = `현재 ${room}방에서 ${number}번 대기자를 호출했습니다.`;
+  announcementMain.textContent = `${room} ROOM ${number}번 입장해 주세요`;
+  announcementSub.textContent = `현재 ${room} ROOM에서 ${number}번 대기자를 호출했습니다.`;
 
   const card = document.getElementById(`roomCard${room}`);
   card.classList.remove("calling");
@@ -219,7 +219,7 @@ async function handleCall(room, number) {
   showOverlay(room, number);
   await playChime();
   window.setTimeout(() => {
-   speak(`${room}방 ${numberToKorean(number)} 번, 들어오세요.`);
+   speak(`${room} 룸 ${numberToKorean(number)} 번, 들어오세요.`);
   }, 180);
 }
 

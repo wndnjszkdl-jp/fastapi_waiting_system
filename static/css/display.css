@@ -323,3 +323,43 @@ body {
     align-items: flex-start;
   }
 }
+
+/* Refined public waiting display */
+.display-page { width: min(1580px, calc(100% - 56px)); padding: 36px 0; }
+.display-header { gap: 28px; margin-bottom: 30px; }
+.display-header h1 { font-size: clamp(44px, 5.4vw, 78px); line-height: .98; }
+.display-header h1 span { color: var(--green); }
+.subtitle { margin-top: 16px; font-size: clamp(15px, 1.35vw, 20px); font-weight: 650; }
+.sound-button, .fullscreen-button { color: #566159; background: #fff; font-size: 14px; }
+.sound-button::before { content: "◉"; margin-right: 7px; color: #9aa39d; }
+.sound-button.enabled::before { color: var(--green); }
+.room-grid { gap: 16px; }
+.room-card { min-height: 460px; border: 1px solid var(--line); border-radius: 22px; }
+.room-top { min-height: 112px; justify-content: flex-start; gap: 17px; padding: 23px 26px; }
+.room-a .room-top { background: var(--a); }
+.room-b .room-top { color: #fff; background: var(--b); }
+.room-c .room-top { background: var(--c); }
+.room-letter { flex: 0 0 auto; width: 64px; height: 64px; display: grid; place-items: center; color: var(--text); background: #fff; border-radius: 50%; font-size: 35px; }
+.room-name { display: flex; flex-direction: column; }
+.room-en { font-size: 10px; letter-spacing: .16em; }
+.room-korean { margin-top: 3px; font-size: 22px; }
+.number-panel { min-height: 348px; }
+.number-panel p { font-size: 16px; }
+.number-panel strong { font-size: clamp(112px, 13vw, 205px); font-variant-numeric: tabular-nums; text-shadow: none; }
+.number-panel span { padding: 9px 17px; background: #f0f3f1; border: 1px solid #e5e9e6; font-size: 14px; }
+.announcement-panel { margin-top: 16px; padding: 21px 25px; background: var(--ink); border-radius: 18px; }
+.bell-icon { width: 49px; height: 49px; color: #6fd49c; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 50%; font-size: 12px; box-shadow: inset 0 0 0 8px rgba(111,212,156,.08); }
+.announcement-main { font-size: clamp(20px, 2vw, 31px); }
+.announcement-sub { color: #b8c1bb; font-size: 14px; }
+.overlay-content { background: var(--ink); border-radius: 26px; }
+.overlay-content p { color: #8be0ae; }
+@media (max-width: 980px) {
+  .room-card { grid-template-columns: 190px 1fr; }
+  .room-top { gap: 10px; }
+}
+@media (max-width: 620px) {
+  .display-page { width: min(100% - 24px, 1580px); padding-top: 22px; }
+  .room-card { grid-template-columns: 115px 1fr; border-radius: 18px; }
+  .room-letter { width: 52px; height: 52px; font-size: 29px; }
+  .room-korean { font-size: 17px; }
+}
