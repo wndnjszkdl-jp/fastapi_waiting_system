@@ -11,6 +11,31 @@ let socket = null;
 let soundEnabled = localStorage.getItem("waitingSoundEnabled") === "true";
 let audioContext = null;
 let overlayTimer = null;
+let preferredKoreanVoice = null;
+
+function selectPreferredKoreanVoice() {
+  const koreanVoices = window.speechSynthesis
+    .getVoices()
+    .filter((voice) => voice.lang?.toLowerCase().startsWith("ko"));
+
+  const femaleVoiceNames = [
+    "sunhi",
+    "yuna",
+    "heami",
+    "sora",
+    "한국의",
+  ];
+
+  preferredKoreanVoice =
+    koreanVoices.find((voice) =>
+      femaleVoiceNames.some((name) => voice.name.toLowerCase().includes(name))
+    ) || koreanVoices[0] || null;
+}
+
+if ("speechSynthesis" in window) {
+  selectPreferredKoreanVoice();
+  window.speechSynthesis.addEventListener("voiceschanged", selectPreferredKoreanVoice);
+}
 
 function updateSoundButton() {
   enableSoundButton.classList.toggle("enabled", soundEnabled);
@@ -144,17 +169,12 @@ function speak(text) {
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "ko-KR";
-  utterance.rate = 1.15;
-  utterance.pitch = 1.35;
+  utterance.rate = 0.92;
+  utterance.pitch = 1.08;
   utterance.volume = 1;
 
-  const voices = window.speechSynthesis.getVoices();
-  const koreanVoice = voices.find((voice) =>
-    voice.lang && voice.lang.toLowerCase().startsWith("ko")
-  );
-
-  if (koreanVoice) {
-    utterance.voice = koreanVoice;
+  if (preferredKoreanVoice) {
+    utterance.voice = preferredKoreanVoice;
   }
 
   window.speechSynthesis.speak(utterance);
