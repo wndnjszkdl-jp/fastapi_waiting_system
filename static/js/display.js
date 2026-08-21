@@ -191,7 +191,7 @@ function showOverlay(room, number) {
   overlayTimer = window.setTimeout(() => {
     callOverlay.classList.remove("show");
     callOverlay.setAttribute("aria-hidden", "true");
-  }, 3500);
+  }, 7000);
 }
 
 function numberToKorean(number) {
